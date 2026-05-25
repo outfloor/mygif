@@ -1,0 +1,25 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import GifCard from "../components/GifCard.astro";
+import getGIFs, { type GifEntry } from "../lib/gif";
+import config from "../config.json";
+
+const gifs = await getGIFs();
+---
+
+<MainLayout>
+    <div class="pt-8 mx-auto p-4 w-max">
+        <h1 class="mb-8 text-xl md:text-4xl text-center">
+            {config.base_description}
+        </h1>
+        <div class="mx-auto w-max grid grid-cols-1 md:grid-cols-2 gap-4">
+            {
+                gifs.map((gif: GifEntry) => (
+                    <a href={`/${gif.slug}.html`} class="nolink">
+                        <GifCard gif={gif} />
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</MainLayout>

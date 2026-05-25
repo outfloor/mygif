@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "./hyperlinks.css";
+
+@theme inline {
+  --color-bg-primary: #24084d;
+  --color-bg-secondary: #391073;
+  --color-fg-primary: #fefefe;
+  --color-fg-secondary: #eeeeee;
+  --color-fg-muted: #cccccc;
+  --color-accent: #ff3d00;
+}

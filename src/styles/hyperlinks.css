@@ -1,0 +1,19 @@
+a:not(.nolink) {
+  position: relative;
+}
+
+a:not(.nolink)::after {
+  content: "";
+  background-color: var(--color-accent);
+  width: 0;
+  height: .2rem;
+  left: 50%;
+  bottom: -.15rem;
+  transform: translateX(-50%);
+  position: absolute;
+  transition: width .3s ease;
+}
+
+a:not(.nolink):hover::after {
+  width: 100%;
+}

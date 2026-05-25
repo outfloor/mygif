@@ -1,0 +1,39 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { _BULL } from "../lib/chars";
+import { Image } from "astro:assets";
+import getGIFs, { type GifEntry } from "../lib/gif";
+import GifCard from "../components/GifCard.astro";
+
+export async function getStaticPaths() {
+    const gifs = await getGIFs();
+    return gifs.map((gif: GifEntry) => ({
+        params: { slug: gif.slug },
+        props: { gif },
+    }));
+}
+
+const { gif } = Astro.props;
+const sizeKB = Math.round(gif.size / 1024);
+---
+
+<MainLayout
+    title={`${gif.title}.gif ${_BULL} ${gif.width}x${gif.height} ${_BULL} ${sizeKB} KB`}
+>
+    <Image
+        src={gif.image}
+        alt=""
+        width={gif.width}
+        height={gif.height}
+        loading="eager"
+        decoding="async"
+        class="w-full h-screen blur-xl brightness-50 absolute"
+    />
+
+    <div class="pt-20 mx-auto w-max">
+        <GifCard gif={gif} downloadable />
+        <div class="mt-2 mx-auto w-max">
+            <a href="/">Home</a>
+        </div>
+    </div>
+</MainLayout>

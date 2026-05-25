@@ -1,0 +1,13 @@
+---
+const { className = "", color = "255 255 255" } = Astro.props as {
+    className?: string;
+    color?: string;
+};
+---
+
+<div
+    class={`p-4 bg-linear-to-t backdrop-blur rounded-md shadow-md w-full ${className}`}
+    style={`--color:${color};background-image:linear-gradient(to top,rgb(var(--color)/.05),rgb(var(--color)/.2));`}
+>
+    <slot />
+</div>

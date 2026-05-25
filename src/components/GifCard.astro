@@ -1,0 +1,46 @@
+---
+import type { GifEntry } from "../lib/gif";
+import { Image } from "astro:assets";
+import { _BULL } from "../lib/chars";
+import Card from "./Card.astro";
+
+const { gif, downloadable = false } = Astro.props as {
+    gif: GifEntry;
+    downloadable?: boolean;
+};
+
+const sizeKB = Math.round(gif.size / 1024);
+---
+
+<Card
+    title={`${gif.width}x${gif.height} ${_BULL} ${sizeKB} KB`}
+    className="w-max h-max"
+>
+    <h1 class="mb-2 text-2xl text-center">{gif.title}</h1>
+
+    {
+        downloadable ? (
+            <a href={gif.src} download={`${gif.title}.gif`}>
+                <Image
+                    src={gif.image}
+                    alt=""
+                    width={gif.width}
+                    height={gif.height}
+                    loading="eager"
+                    decoding="async"
+                    class="bg-white rounded-md w-max h-50 md:h-100"
+                />
+            </a>
+        ) : (
+            <Image
+                src={gif.image}
+                alt=""
+                width={gif.width}
+                height={gif.height}
+                loading="eager"
+                decoding="async"
+                class="bg-white rounded-md w-max h-50 md:h-100"
+            />
+        )
+    }
+</Card>
